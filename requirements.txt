@@ -20,4 +20,3 @@ vine==5.0.0
 wcwidth==0.2.6
 redis==4.5.5
 whitenoise==6.4.0
-sqlite3>=3.8.3
