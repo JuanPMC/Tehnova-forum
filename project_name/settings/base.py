@@ -73,10 +73,22 @@ WSGI_APPLICATION = "project_name.wsgi.app"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os_path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os_path.join(BASE_DIR, 'db.sqlite3'),
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os_getenv("POSTGRES_DATABASE", "verceldb"),
+        "USER": os_getenv("POSTGRES_USER", "default"),
+        "PASSWORD": os_getenv("POSTGRES_PASSWORD", "password"),
+        "HOST": os_getenv("POSTGRES_HOST", "ep-curly-glade-57879119.us-east-1.postgres.vercel-storage.com"),
+        "PORT": os_getenv("POSTGRES_PORT", "5432"),
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 
