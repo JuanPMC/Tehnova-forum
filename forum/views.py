@@ -48,6 +48,10 @@ def crearPost(request):
             post.save()
         else:
             post = EntradaFormulario.objects.get(id=request.POST['editar'])
+            # ------- SEGURIDAD
+            if post.user != request.user:
+                return HttpResponse("<h1>Auth error, incident has been recorded</h1>")
+            # ------- SEGURIDAD
             post.titulo = request.POST['titulo']
             post.cuerpo = request.POST['cuerpo']
             post.save()
@@ -57,5 +61,9 @@ def crearPost(request):
 @login_required
 def eliminarPost(request):
     postOriginal =  EntradaFormulario.objects.get(id=request.GET['id'])
+    # ------- SEGURIDAD
+    if postOriginal.user != request.user:
+        return HttpResponse("<h1>Auth error, incident has been recorded</h1>")
+    # ------- SEGURIDAD
     postOriginal.delete()
     return redirect('/verPosts')
